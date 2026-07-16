@@ -32,6 +32,10 @@ PRODUCT_PACKAGES += \
     otapreopt_script \
     xbl_config_arb_check
 
+# APEX
+OVERRIDE_PRODUCT_COMPRESSED_APEX := false
+PRODUCT_COMPRESSED_APEX := false
+
 # Audio
 PRODUCT_PACKAGES += \
     android.hardware.audio@7.1-impl \
