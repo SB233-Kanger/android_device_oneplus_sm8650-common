@@ -498,9 +498,6 @@ ODM_MANIFEST_FILES := \
     $(LOCAL_PATH)/vintf/network_manifest_odm.xml
 endif
 
-# Virtualization service
-$(call inherit-product, packages/modules/Virtualization/apex/product_packages.mk)
-
 # WiFi
 PRODUCT_PACKAGES += \
     android.hardware.wifi-service \
