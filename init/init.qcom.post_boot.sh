@@ -613,7 +613,7 @@ function configure_zram_parameters() {
         fi
 
         mkswap /dev/block/zram0
-        swapon /dev/block/zram0 -p 32758
+        swapon /dev/block/zram0 -p 32767
     fi
 }
 
