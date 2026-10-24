@@ -34,14 +34,13 @@ function configure_zram_parameters() {
 	MemTotalStr=`cat /proc/meminfo | grep MemTotal`
 	MemTotal=${MemTotalStr:16:8}
 
-	let RamSizeGB="( $MemTotal / 1048576 ) + 1"
 	diskSizeUnit=M
-	# Zram disk - 75%
-	let zRamSizeMB="( $RamSizeGB * 1024 ) * 3 / 4"
+	# Zram disk - 50% of physical RAM
+	let zRamSizeMB="( $MemTotal / 1024 ) / 2"
 
 	# use MB avoid 32 bit overflow
-	if [ $zRamSizeMB -gt 6144 ]; then
-		let zRamSizeMB=6144
+	if [ $zRamSizeMB -gt 16384 ]; then
+		zRamSizeMB=16384
 	fi
 
 	# And enable lz4 zram compression
@@ -51,7 +50,7 @@ function configure_zram_parameters() {
 		if [ -f /sys/block/zram0/use_dedup ]; then
 			echo 1 > /sys/block/zram0/use_dedup
 		fi
-		echo "$zRamSizeMB""$diskSizeUnit" > /sys/block/zram0/disksize
+		echo "${zRamSizeMB}${diskSizeUnit}" > /sys/block/zram0/disksize
 
 		# ZRAM may use more memory than it saves if SLAB_STORE_USER
 		# debug option is enabled.
